@@ -1,30 +1,27 @@
 # NetWatch — Next.js 15 / Vercel
 
-Bản web thuần Next.js 15 + TypeScript, triển khai từ GitHub lên Vercel.
+Web đo tốc độ mạng từ trình duyệt: Download, Upload, Ping, Jitter; tự động đo mỗi 10 phút khi tab còn hoạt động; lịch sử trong phiên và tải Excel.
 
-## Chức năng
-- Nút **Đo tốc độ ngay** đo ping, jitter, download, upload từ trình duyệt tới Cloudflare.
-- Kết quả cập nhật ngay sau phép đo, lịch sử trong bộ nhớ tab (tối đa 20 lượt).
-- Không Python, không SQLite/database, không Excel, không EXE, không native npm addon.
+## Cài đặt
 
-## Chạy local
-Yêu cầu Node.js >= 20.9 (khuyến nghị Node.js 22 LTS).
+Node.js 20.9+ (khuyến nghị Node.js 22 LTS):
 
 ```bash
 npm install
 npm run dev
+npm run build
 ```
-Mở http://localhost:3000
 
-## Deploy
-1. Push thư mục này lên GitHub (đặt `package.json` ở root repository).
-2. Vercel > Add New > Project > Import Git Repository.
-3. Framework: Next.js, Build command `npm run build`, Output directory để mặc định.
-4. Deploy và gắn custom domain trong Vercel > Project > Settings > Domains.
+## Deploy GitHub → Vercel
 
-## Giới hạn cần biết
-- Phép đo chạy ở trình duyệt người dùng, **không đo server Vercel**.
-- Dùng `https://speed.cloudflare.com/__down` và `/__up`. Cần Cloudflare tiếp tục cho phép truy cập CORS từ website. Nếu endpoint bị chặn, UI hiển thị lỗi rõ ràng.
-- Không thể ping ICMP, truy xuất gateway LAN, đo nền khi đóng tab, hoặc ghi lịch sử lâu dài trên Vercel frontend-only.
-- Không tự chạy cron/interval phía server. Có thể đo thủ công khi mở website.
-- Kết quả là phép đo gần đúng, không phải kết quả chính thức của Ookla Speedtest.
+1. Push **nội dung thư mục NetWatch-Vercel** lên root của GitHub repository (hoặc chọn Root Directory tương ứng trên Vercel).
+2. Import repository vào Vercel, chọn **Framework Preset: Next.js**.
+3. **Output Directory: Default / để trống**. Không nhập `public` hay `.next`.
+4. Build Command: `npm run build` (hoặc Default); Install Command: `npm install` (hoặc Default).
+5. Deploy. Nếu dự án Vercel cũ có Output Directory = `public`, **phải xóa override trong Project Settings → Build and Deployment → Build Settings**, rồi redeploy. File `vercel.json` không thể tự xóa setting đã lưu trên dashboard.
+
+`vercel.json` xác định framework Next.js, không chỉ định outputDirectory. Next.js dùng output build do adapter Vercel quản lý.
+
+## Lưu ý
+
+Tự động đo chỉ chạy khi tab còn mở và browser cho phép chạy timer. Excel tạo ngay trong trình duyệt bằng `xlsx`; không dùng database, Python hay exe.

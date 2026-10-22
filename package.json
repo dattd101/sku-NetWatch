@@ -15,9 +15,9 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "typescript": "^5.8.3",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.0",
-    "typescript": "^5.8.3"
+    "@types/react-dom": "^19.1.0"
   }
 }

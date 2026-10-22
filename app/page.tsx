@@ -11,7 +11,7 @@ export default function Home() {
   const [running, setRunning] = useState(false);
   const [automatic, setAutomatic] = useState(false);
   const [nextAt, setNextAt] = useState<number | null>(null);
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(0);
   const [online, setOnline] = useState<boolean | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const runningRef = useRef(false);
